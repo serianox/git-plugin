@@ -91,7 +91,7 @@ public class PartialCloneFilter extends GitSCMExtension {
          */
         @Override
         public String getDisplayName() {
-            return "Partial clone filter specification";
+            return "Partial clone";
         }
     }
 }

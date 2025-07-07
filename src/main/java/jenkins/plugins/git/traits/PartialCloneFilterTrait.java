@@ -35,7 +35,7 @@ public class PartialCloneFilterTrait extends GitSCMExtensionTrait<PartialCloneFi
          */
         @Override
         public String getDisplayName() {
-            return "Partial clone filter specification";
+            return "Partial clone";
         }
     }
 }
