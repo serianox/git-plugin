@@ -1,8 +1,6 @@
 package hudson.plugins.git.extensions.impl;
 
-import java.io.IOException;
-import java.util.Objects;
-
+import edu.umd.cs.findbugs.annotations.CheckForNull;
 import hudson.Extension;
 import hudson.model.Run;
 import hudson.model.TaskListener;
@@ -11,8 +9,11 @@ import hudson.plugins.git.GitSCM;
 import hudson.plugins.git.extensions.GitClientType;
 import hudson.plugins.git.extensions.GitSCMExtension;
 import hudson.plugins.git.extensions.GitSCMExtensionDescriptor;
+import java.io.IOException;
+import java.util.Objects;
 import org.jenkinsci.Symbol;
 import org.jenkinsci.plugins.gitclient.CloneCommand;
+import org.jenkinsci.plugins.gitclient.FetchCommand;
 import org.jenkinsci.plugins.gitclient.GitClient;
 import org.jenkinsci.plugins.scriptsecurity.sandbox.whitelists.Whitelisted;
 import org.kohsuke.stapler.DataBoundConstructor;
@@ -35,10 +36,22 @@ public class PartialCloneFilter extends GitSCMExtension {
      * {@inheritDoc}
      */
     @Override
-    public void decorateCloneCommand(GitSCM scm, Run<?, ?> build, GitClient git, TaskListener listener,
-            CloneCommand cmd) throws IOException, InterruptedException, GitException {
+    public void decorateCloneCommand(
+            GitSCM scm, Run<?, ?> build, GitClient git, TaskListener listener, CloneCommand cmd)
+            throws IOException, InterruptedException, GitException {
 
-        // cmd.filter(filterSpec);
+        cmd.filter(filterSpec);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void decorateFetchCommand(
+            GitSCM scm, @CheckForNull Run<?, ?> run, GitClient git, TaskListener listener, FetchCommand cmd)
+            throws IOException, InterruptedException, GitException {
+
+        cmd.filter(filterSpec);
     }
 
     /**
